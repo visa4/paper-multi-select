@@ -41,16 +41,16 @@ the form. Populates the `paper-input` based on searchable selection of options u
     :host {
       display: block;
       min-width: 300px;
-      --paper-input-container-focus-color: var(--paper-green-500);
+      --paper-input-container-focus-color: var( --paper-grey-500);
       @apply(--paper-multi-select);
     }
 
     paper-checkbox {
       min-width: 300px;
-      --paper-checkbox-checked-color: var(--paper-green-500);
-      --paper-checkbox-checked-ink-color: var(--paper-green-500);
-      --paper-checkbox-unchecked-color: var(--paper-green-900);
-      --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
+      --paper-checkbox-checked-color: var( --paper-grey-500);
+      --paper-checkbox-checked-ink-color: var( --paper-grey-500);
+      --paper-checkbox-unchecked-color: var( --paper-grey-900);
+      --paper-checkbox-unchecked-ink-color: var( --paper-grey-900);
       --paper-checkbox-label-spacing: 0;
       --paper-checkbox-margin: 8px;
       @apply(--paper-multi-select-checkbox);
@@ -63,7 +63,7 @@ the form. Populates the `paper-input` based on searchable selection of options u
     }
 
     #info #moreString {
-      color: var(--paper-green-500);
+      color: var( --paper-grey-500);
       text-decoration: underline;
       @apply(--paper-multi-select-more-text);
     }
@@ -74,8 +74,8 @@ the form. Populates the `paper-input` based on searchable selection of options u
     }
 
     #dialog {
-      --paper-dialog-color: var(--paper-green-900);
-      --paper-dialog-button-color: var(--paper-green-900);
+      --paper-dialog-color: var( --paper-grey-900);
+      --paper-dialog-button-color: var( --paper-grey-900);
       max-width: 700px;
       @apply(--paper-multi-select-dialog);
     }
@@ -90,7 +90,7 @@ the form. Populates the `paper-input` based on searchable selection of options u
     }
 
     iron-icon[suffix] {
-      color: var(--paper-green-900);
+      color: var( --paper-grey-900);
       opacity: .8;
       @apply(--paper-multi-select-icon-suffix);
     }
@@ -106,7 +106,7 @@ the form. Populates the `paper-input` based on searchable selection of options u
       @apply(--paper-multi-select-lead-string);
     }
     .more-string {
-      color: var(--paper-green-500);
+      color: var( --paper-grey-500);
       text-decoration: underline;
       @apply(--paper-multi-select-more-string);
     }
@@ -126,10 +126,6 @@ the form. Populates the `paper-input` based on searchable selection of options u
       on-tap="trigger">
       <iron-icon icon="more-horiz" suffix></iron-icon>
     </paper-input>
-    <span disabled$="[[disabled]]" id="info" on-tap="trigger">
-      <span class="lead-string" inner-h-t-m-l="[[_leadString]]"></span>
-      <span class="more-string" inner-h-t-m-l="[[_moreString]]"></span>
-    </span>
 
     <paper-dialog id="dialog">
       <paper-input
@@ -209,9 +205,7 @@ the form. Populates the `paper-input` based on searchable selection of options u
         chips: Array,
 
         /** Value that will be used to filter the items on the dialog. */
-        filterVal: String,
-        _leadString: String,
-        _moreString: String
+        filterVal: String
       },
 
       observers: [
@@ -316,10 +310,6 @@ the form. Populates the `paper-input` based on searchable selection of options u
       _updateValues() {
         const selectedChips = this.querySelectorAll('.chip[checked]');
 
-        //reset selection string
-        this._leadString = '';
-        this._moreString = '';
-
         this._renderChips(selectedChips);
         this.selectedItems = [];
         for (const chip of selectedChips) {
@@ -345,15 +335,6 @@ the form. Populates the `paper-input` based on searchable selection of options u
           if (index === 1) {
             break;
           }
-        }
-        this._leadString = '';
-        this._leadString += leadClues.join(', ');
-        if (totalItems === 1) {
-          this._moreString = ' has been selected';
-        } else if (totalItems > 2) {
-          this._moreString = ' +' + (totalItems - 2) + ' more item(s) selected';
-        } else if (totalItems !== 0) {
-          this._moreString = ' have been selected';
         }
       }
     });
